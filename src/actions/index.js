@@ -8,28 +8,16 @@ export const SET_ERROR = 'SET_ERROR'
 
 export const fetchSmurfs = () => {
     return (dispatch) => {
-        dispatch(fetchStart())
+        dispatch({type: FETCH_START})
 
         axios.get('http://localhost:3333/smurfs')
             .then(resp => {
-                dispatch(fetchSuccess(resp.data))
+                dispatch({type: FETCH_SUCCESS, payload: resp.data})
             })
             .catch(err => {
-                dispatch(fetchFail(err))
+                dispatch({type: FETCH_FAIL, payload: err})
             })
     }
-}
-
-export const fetchStart = () => {
-    return({type: FETCH_START})
-}
-
-export const fetchSuccess = (smurf) => {
-    return({type: FETCH_SUCCESS, payload:smurf})
-}
-
-export const fetchFail = (err) => {
-    return ({type: FETCH_FAIL, payload: err})
 }
 
 export const addSmurf = ({name, position, nickname, description}) => {
@@ -39,7 +27,7 @@ export const addSmurf = ({name, position, nickname, description}) => {
     }
 }
 
-export const errorMessage = (err) => {
+export const throwError = (err) => {
     return {
         type: SET_ERROR,
         payload: err
