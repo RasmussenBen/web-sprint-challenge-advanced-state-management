@@ -3,12 +3,7 @@ import { FETCH_START, FETCH_SUCCESS, FETCH_FAIL } from "../actions";
 
 
 export const initialState = {
-    smurf: {
-        name: '',
-        position: '',
-        nickname: '',
-        description: ''
-    },
+    smurfArray: [],
     isFetching: false,
     error: ''
 }
