@@ -1,11 +1,40 @@
 import { start } from "@popperjs/core";
-import {}
+import { FETCH_START, FETCH_SUCCESS, FETCH_FAIL } from "../actions";
 
 
 export const initialState = {
+    smurf: {
+        name: '',
+        position: '',
+        nickname: '',
+        description: ''
+    },
+    isFetching: false,
+    error: ''
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action)=>{
+    switch (action.type) {
+        default:
+            return state
+        case(FETCH_START):
+            return({
+                ...state,
+                isFetching: true
+            })
+        case(FETCH_SUCCESS):
+            return({
+                ...state,
+                smurf: action.payload,
+                isFetching: false
+            })
+        case(FETCH_FAIL):
+            return({
+                ...state,
+                error:action.payload,
+                isFetching: false
+            })
+    }
 }
 
 export default reducer;
