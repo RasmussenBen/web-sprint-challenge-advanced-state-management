@@ -1,5 +1,5 @@
 import { start } from "@popperjs/core";
-import { FETCH_START, FETCH_SUCCESS, FETCH_FAIL } from "../actions";
+import { FETCH_START, FETCH_SUCCESS, FETCH_FAIL, ADD_SMURF, SET_ERROR } from "../actions";
 
 
 export const initialState = {
@@ -20,10 +20,25 @@ const reducer = (state = initialState, action)=>{
         case(FETCH_SUCCESS):
             return({
                 ...state,
-                smurf: action.payload,
+                smurfs: action.payload,
                 isFetching: false
             })
         case(FETCH_FAIL):
+            return({
+                ...state,
+                errorMessage:action.payload,
+                isFetching: false
+            })
+        case(ADD_SMURF):
+        const addSmurf = {
+            ...action.payload
+        }
+        return {
+            ...state,
+            smurfs: [...state.smurfs, addSmurf],
+            error: ''
+        }
+        case(SET_ERROR):
             return({
                 ...state,
                 error:action.payload,
